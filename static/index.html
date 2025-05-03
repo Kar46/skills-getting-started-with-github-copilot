@@ -1,0 +1,52 @@
+<!-- Add a section for participant cards -->
+<div id="participant-cards" class="participant-cards">
+  <!-- Participant cards will be dynamically added here -->
+</div>
+
+<style>
+  .participant-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .participant-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+</style>
+
+<script>
+  async function fetchParticipants(activityName) {
+    try {
+      const response = await fetch(`/activities/${activityName}/participants`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch participants for ${activityName}`);
+      }
+      const data = await response.json();
+      renderParticipants(data.participants);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function renderParticipants(participants) {
+    const participantCards = document.getElementById('participant-cards');
+    participantCards.innerHTML = ''; // Clear existing cards
+
+    participants.forEach((participant) => {
+      const card = document.createElement('div');
+      card.className = 'participant-card';
+      card.textContent = participant;
+      participantCards.appendChild(card);
+    });
+  }
+
+  // Example usage: Fetch participants for "Chess Club"
+  fetchParticipants('Chess Club');
+</script>
