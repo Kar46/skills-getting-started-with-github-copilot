@@ -112,5 +112,5 @@ def get_activity_participants(activity_name: str):
     if activity_name not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
-    # Return the list of participants
+    # Return the list of participan
     return {"participants": activities[activity_name]["participants"]}
